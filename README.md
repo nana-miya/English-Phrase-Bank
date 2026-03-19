@@ -1,0 +1,27 @@
+# 🇬🇧 English Phrase Bank (CRUD Web Application)
+
+Java (Spring Boot) で作成した、英語フレーズ学習管理アプリです。
+「覚えたフレーズを逃さない、声で確認できる」をコンセプトに開発しました。
+
+## 🚀 主な機能
+- **CRUD機能**: フレーズの登録、一覧表示、編集、削除。
+- **検索・フィルター**: キーワード検索とお気に入り（🌟）による絞り込み。
+- **音声読み上げ**: Web Speech API を活用し、登録した英語をネイティブ音声で再生。
+- **レスポンシブデザイン**: Bootstrapを使用し、PC・スマホ両方で快適に操作可能。
+
+## 🛠 使用技術
+- **Backend**: Java 21 / Spring Boot 3.4
+- **Database**: H2 Database (In-Memory)
+- **Frontend**: Thymeleaf / Bootstrap 5 / JavaScript (Web Speech API)
+- **Build Tool**: Maven
+
+## 💡 こだわり・工夫した点
+- **ユーザー体験 (UX)**: 登録した最新のフレーズが一番上に来るように設計。
+- **セキュリティ**: Thymeleaf 3.1の制約に対応し、JavaScriptへのデータ受け渡しを `data-*` 属性経由で行う安全な設計にしました。
+- **実用性**: 職業訓練校でのJava/Python学習と並行し、自分自身の英語学習（Eiken Pre-1/TOEIC 775）の効率を上げるために開発しました。
+
+## 🏃 起動方法
+1. Repositoryをクローン。
+2. Eclipse等のIDEで `Maven Project` としてインポート。
+3. `EnglishAppApplication.java` を実行。
+4. `http://localhost:8080` にアクセス。

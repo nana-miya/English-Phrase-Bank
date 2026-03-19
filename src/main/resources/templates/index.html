@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>English Phrase Bank</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { 
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%); 
+            min-height: 100vh;
+            padding: 40px 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-card {
+            border: none;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            background: rgba(255, 255, 255, 0.95);
+        }
+        .table { vertical-align: middle; }
+        .btn-fav { font-size: 1.2rem; transition: transform 0.2s; }
+        .btn-fav:hover { transform: scale(1.2); }
+        .form-control { border-radius: 10px; }
+        .badge-memo { font-weight: normal; color: #6c757d; font-size: 0.85rem; }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="card main-card p-4 p-md-5">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h1 class="text-primary fw-bold m-0">🇬🇧 My Phrase Bank</h1>
+            <span class="badge bg-primary rounded-pill" th:text="${phrases.size()} + ' phrases'"></span>
+        </div>
+
+        <div class="bg-light p-3 rounded-4 mb-4">
+            <form th:action="@{/}" method="get" class="row g-3 align-items-center">
+                <div class="col-md-6">
+                    <input type="text" name="keyword" th:value="${keyword}" class="form-control" placeholder="キーワードで検索...">
+                </div>
+                <div class="col-auto">
+                    <div class="form-check form-switch">
+                        <input class="form-check-input" type="checkbox" name="onlyFavorite" id="fav" 
+                               th:checked="${onlyFavorite}" onchange="this.form.submit()">
+                        <label class="form-check-label fw-bold" for="fav">🌟のみ表示</label>
+                    </div>
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-primary px-4 rounded-pill">検索</button>
+                    <a th:href="@{/}" class="btn btn-link text-decoration-none">リセット</a>
+                </div>
+            </form>
+        </div>
+
+        <form th:action="@{/add}" method="post" class="row g-2 mb-5">
+            <div class="col-md-4"><input type="text" name="englishText" class="form-control" placeholder="English phrase" required></div>
+            <div class="col-md-4"><input type="text" name="japaneseText" class="form-control" placeholder="日本語の意味" required></div>
+            <div class="col-md-3"><input type="text" name="memo" class="form-control" placeholder="メモ（任意）"></div>
+            <div class="col-md-1"><button type="submit" class="btn btn-success w-100 rounded-pill">＋</button></div>
+        </form>
+
+        <div class="table-responsive">
+            <table class="table table-hover mt-2">
+                <thead class="table-light">
+                    <tr>
+                        <th width="50">🌟</th>
+                        <th>英語フレーズ / 日本語</th>
+                        <th width="180">操作</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="p : ${phrases}">
+                        <td>
+                            <a th:href="@{/favorite/{id}(id=${p.id})}" class="text-decoration-none btn-fav" 
+                               th:text="${p.favorite} ? '⭐' : '☆'"></a>
+                        </td>
+                        <td>
+                            <div class="fw-bold text-dark fs-5" th:text="${p.englishText}"></div>
+                            <div class="text-secondary" th:text="${p.japaneseText}"></div>
+                            <div class="badge-memo" th:if="${p.memo != ''}" th:text="'📝 ' + ${p.memo}"></div>
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button class="btn btn-sm btn-outline-info" 
+                                        th:data-phrase="${p.englishText}" 
+                                        onclick="speak(this.getAttribute('data-phrase'))">🔊 再生</button>
+                                <a th:href="@{/edit/{id}(id=${p.id})}" class="btn btn-sm btn-outline-primary">編集</a>
+                                <a th:href="@{/delete/{id}(id=${p.id})}" class="btn btn-sm btn-outline-danger" 
+                                   onclick="return confirm('本当に削除しますか？')">削除</a>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div th:if="${phrases.empty}" class="text-center py-5 text-muted">
+            <p class="fs-4">フレーズがまだありません。<br>上のフォームから登録してみましょう！</p>
+        </div>
+    </div>
+</div>
+
+<script>
+function speak(t) {
+    const u = new SpeechSynthesisUtterance(t);
+    u.lang = 'en-US';
+    u.rate = 0.9; // 少しゆっくりめに再生
+    speechSynthesis.speak(u);
+}
+</script>
+</body>
+</html>
