@@ -1,4 +1,4 @@
-# 🇬🇧 English Phrase Bank (CRUD Web Application)
+# English Phrase Bank (CRUD Web Application)
 
 Java (Spring Boot) で作成した、英単語学習管理アプリです。
 「覚えたフレーズを逃さない、声で確認できる」をコンセプトに開発しました。
