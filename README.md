@@ -18,9 +18,3 @@ Java (Spring Boot) で作成した、英単語学習管理アプリです。
 ## 💡 こだわり・工夫した点
 - **ユーザー体験 (UX)**: 登録した最新のフレーズが一番上に来るように設計。
 - **セキュリティ**: Thymeleaf 3.1の制約に対応し、JavaScriptへのデータ受け渡しを `data-*` 属性経由で行う安全な設計にしました。
-   
-## 🏃 起動方法
-1. Repositoryをクローン。
-2. Eclipse等のIDEで `Maven Project` としてインポート。
-3. `EnglishAppApplication.java` を実行。
-4. `http://localhost:8080` にアクセス。
