@@ -1,5 +1,7 @@
 # English Phrase Bank (CRUD Web Application)
 
+<img width="1918" height="868" alt="スクリーンショット 2026-06-16 141948" src="https://github.com/user-attachments/assets/ec8869d2-1849-4499-b90d-324843a8dee2" />
+
 Java (Spring Boot) で作成した、英単語学習管理アプリです。
 「覚えたフレーズを逃さない、声で確認できる」をコンセプトに開発しました。
 
